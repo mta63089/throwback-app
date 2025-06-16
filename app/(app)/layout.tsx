@@ -8,6 +8,7 @@ export default function AppLayout({
   return (
     <>
       <SiteHeader />
+      <div className="w-full h-full flex flex-1">{children}</div>
     </>
   );
 }

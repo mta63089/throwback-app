@@ -8,7 +8,7 @@ export default function Search() {
       <Input
         type="search"
         placeholder="Search for anything"
-        className="w-[300px] md:w-[600px]"
+        className="w-[300px] md:w-[600px] xl:w-[1200px]"
       />
       <Button
         size="icon"
