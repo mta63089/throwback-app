@@ -1,23 +1,15 @@
 "use client";
 
-import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
-import { Badge } from "@/components/ui/badge";
-import { Button } from "@/components/ui/button";
-import {
-  DropdownMenu,
-  DropdownMenuContent,
-  DropdownMenuItem,
-  DropdownMenuLabel,
-  DropdownMenuSeparator,
-  DropdownMenuTrigger,
-} from "@/components/ui/dropdown-menu";
-import { Input } from "@/components/ui/input";
+import { siteConfig } from "@/lib/config";
 import { cn } from "@/lib/utils";
 import { motion, useScroll, useTransform } from "framer-motion";
-import { Bell, Menu, Search } from "lucide-react";
+import { GiftIcon, MenuIcon, ShoppingCartIcon } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
 import * as React from "react";
+import Search from "./search";
+import { Button } from "./ui/button";
+import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
 
 const navItems = [
   { name: "Dashboard", href: "/dashboard" },
@@ -27,7 +19,7 @@ const navItems = [
   { name: "Documents", href: "/documents" },
 ];
 
-export default function Header() {
+export default function SiteHeader() {
   const [isScrolled, setIsScrolled] = React.useState(false);
   const [activeNavItem, setActiveNavItem] = React.useState("Dashboard");
   const { scrollY } = useScroll();
@@ -44,104 +36,74 @@ export default function Header() {
   return (
     <motion.header
       className={cn(
-        "sticky left-0 right-0 top-0 z-50 bg-background transition-all duration-300",
+        "left-0 right-0 top-0 border-b-3 border-gray-300 transition-all duration-300",
         isScrolled ? "shadow-md" : ""
       )}
       style={{ opacity: headerOpacity }}
     >
-      <div className="container mx-auto">
-        <div className="flex h-16 items-center justify-between">
+      <div className="container mx-4">
+        <div className="flex h-20 items-center justify-between">
           <div className="flex items-center gap-4">
             <div className="flex items-center gap-2">
               <Image
                 src={"/logo.svg"}
-                alt="DY Comps Arrow Logo"
+                alt="Throwback Flower Logo"
                 className="size-8"
                 width={100}
                 height={100}
               />
               <Link href="/" className="mr-6 flex items-center space-x-2">
-                <span className="text-xl font-semibold">DY Comps</span>
+                <span className="text-3xl tracking-tighter font-black text-secondary">
+                  {siteConfig.title}
+                </span>
               </Link>
             </div>
-            <div className="relative hidden md:block">
-              <Search className="absolute left-2.5 top-2.5 size-4 text-muted-foreground" />
-              <Input
-                type="search"
-                placeholder="Search..."
-                className="w-[200px] pl-8 md:w-[300px]"
-              />
+            <div className="items-center flex">
+              <DropdownMenu>
+                <DropdownMenuTrigger>
+                  <Button variant="link" size="sm" className="text-lg">
+                    <MenuIcon className="size-8" />
+                    Categories
+                  </Button>
+                </DropdownMenuTrigger>
+              </DropdownMenu>
+            </div>
+            <div className="relative">
+              <Search />
+            </div>
+            <div className="flex justify-between">
+              <Button variant="link">Sign in</Button>
+              <Button variant="link">
+                <GiftIcon className="size-8" />
+              </Button>
+              <Button variant="link">
+                <ShoppingCartIcon className="size-8" />
+              </Button>
             </div>
           </div>
-
-          <nav className="hidden md:block">
-            <ul className="flex items-center gap-1">
-              {navItems.map((item) => (
-                <li key={item.name}>
-                  <Button
-                    variant="ghost"
-                    className={cn(
-                      "relative",
-                      activeNavItem === item.name && "text-primary"
-                    )}
-                    onClick={() => setActiveNavItem(item.name)}
-                  >
-                    {item.name}
-                    {activeNavItem === item.name && (
-                      <motion.div
-                        className="absolute bottom-0 left-0 right-0 h-0.5 bg-primary"
-                        layoutId="activeNavItem"
-                      />
-                    )}
-                  </Button>
-                </li>
-              ))}
-            </ul>
-          </nav>
-
-          <div className="flex items-center gap-4">
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon" className="relative">
-                  <Bell className="size-5" />
-                  <Badge className="absolute -right-1 -top-1 size-5 justify-center rounded-full p-0">
-                    3
-                  </Badge>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end" className="w-[300px]">
-                <DropdownMenuLabel>Notifications</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>New message from Alice</DropdownMenuItem>
-                <DropdownMenuItem>
-                  Project &quot;X&quot; completed
-                </DropdownMenuItem>
-                <DropdownMenuItem>3 new team members joined</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <DropdownMenu>
-              <DropdownMenuTrigger asChild>
-                <Button variant="ghost" size="icon">
-                  <Avatar>
-                    <AvatarImage src="/placeholder-avatar.jpg" alt="User" />
-                    <AvatarFallback>U</AvatarFallback>
-                  </Avatar>
-                </Button>
-              </DropdownMenuTrigger>
-              <DropdownMenuContent align="end">
-                <DropdownMenuLabel>My Account</DropdownMenuLabel>
-                <DropdownMenuSeparator />
-                <DropdownMenuItem>Profile</DropdownMenuItem>
-                <DropdownMenuItem>Settings</DropdownMenuItem>
-                <DropdownMenuItem>Logout</DropdownMenuItem>
-              </DropdownMenuContent>
-            </DropdownMenu>
-
-            <Button variant="ghost" size="icon" className="md:hidden">
-              <Menu className="size-5" />
+        </div>
+        <div className="flex h-12 justify-center-safe gap-8">
+          <Link href="/gifts">
+            <Button variant="link">
+              <GiftIcon />
+              Gifts
             </Button>
-          </div>
+          </Link>
+          <Link href="#">
+            <Button variant="link">New Arrivals</Button>
+          </Link>
+          <Link href="#">
+            <Button variant="link">Home Favorites</Button>
+          </Link>
+          <Link href="#">
+            <Button variant="link">Fashion Finds</Button>
+          </Link>
+          <Link href="#">
+            <Button variant="link">Registry</Button>
+          </Link>
+          <Link href="#">
+            <Button variant="link">Gift Cards</Button>
+          </Link>
         </div>
       </div>
     </motion.header>
