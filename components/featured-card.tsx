@@ -10,10 +10,10 @@ export default function FeaturedCard({
   alt: string;
 }) {
   return (
-    <div className="grid grid-cols-1 md:grid-cols-2 gap-4 rounded-xl overflow-hidden border-black w-full h-64 border-2">
+    <div className="grid grid-cols-1 md:grid-cols-3 gap-16 rounded-xl overflow-hidden w-2/3 mx-auto h-64 border-2">
       {/* Left Section */}
-      <Card className="bg-peach-50 bg-[#FFE6D7] rounded-xl w-2/3 p-6 flex flex-col md:flex-row items-center justify-between">
-        <div className="flex-1 space-y-4">
+      <Card className="items-center relative rounded-xl p-0 col-span-2 flex flex-1 md:flex-row">
+        <div className="w-1/3 flex-1">
           <h2 className="text-3xl font-semibold leading-tight">
             Made just for you!
           </h2>
@@ -24,19 +24,19 @@ export default function FeaturedCard({
             Personalise now
           </Button>
         </div>
-        <div className="relative flex-1 mt-6 md:mt-0 md:ml-6">
+        <div className="relative w-2/3 h-full flex-1">
           <Image
             src={getRandomImage()}
             alt="Custom Crowns"
             fill
-            className="w-full h-auto object-cover rounded-xl"
+            className="object-cover rounded-r-lg rounded-l-full"
             priority
           />
         </div>
       </Card>
 
       {/* Right Section */}
-      <Card className="relative w-1/3 p-0 rounded-xl overflow-hidden">
+      <Card className="relative p-0 rounded-xl overflow-hidden">
         <Image
           src={getRandomImage()} // replace with your actual image path
           alt="Engraving board"
