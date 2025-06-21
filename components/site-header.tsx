@@ -9,7 +9,11 @@ import Link from "next/link";
 import * as React from "react";
 import Search from "./search";
 import { Button } from "./ui/button";
-import { DropdownMenu, DropdownMenuTrigger } from "./ui/dropdown-menu";
+import {
+  DropdownMenu,
+  DropdownMenuContent,
+  DropdownMenuTrigger,
+} from "./ui/dropdown-menu";
 
 const navItems = [
   { name: "Dashboard", href: "/dashboard" },
@@ -41,10 +45,10 @@ export default function SiteHeader() {
       )}
       style={{ opacity: headerOpacity }}
     >
-      <div className="container mx-4">
-        <div className="flex h-20 items-center justify-around">
-          <div className="flex items-center gap-4">
-            <div className="flex items-center gap-2">
+      <div className="container mx-auto">
+        <div className="flex h-20 items-center">
+          <div className="flex gap-4">
+            <div className="flex gap-2">
               <Image
                 src={"/logo.svg"}
                 alt="Throwback Flower Logo"
@@ -52,7 +56,7 @@ export default function SiteHeader() {
                 width={100}
                 height={100}
               />
-              <Link href="/" className="mr-6 flex items-center space-x-2">
+              <Link href="/" className="mr-6 flex space-x-2">
                 <span className="text-3xl tracking-tighter font-black text-secondary">
                   {siteConfig.title}
                 </span>
@@ -66,6 +70,7 @@ export default function SiteHeader() {
                     Categories
                   </Button>
                 </DropdownMenuTrigger>
+                <DropdownMenuContent></DropdownMenuContent>
               </DropdownMenu>
             </div>
             <div className="relative">
